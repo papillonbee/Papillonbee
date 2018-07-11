@@ -1,4 +1,4 @@
-﻿from flask import Flask, request
+from flask import Flask, request
 import json
 import requests
 
@@ -61,9 +61,9 @@ def bot():
     # Token สำหรับตอบกลับ (จำเป็นต้องใช้ในการตอบกลับ)
     replyToken = msg_in_json["events"][0]['replyToken']
 
-    sourceType = msg_in_json["events"][0]["source"]["type"]
-    userId = msg_in_json["events"][0]["source"][sourceType + "Id"]
-    
+    #sourceType = msg_in_json["events"][0]["source"]["type"]
+    #userId = msg_in_json["events"][0]["source"][sourceType + "Id"]
+    userId = msg_in_json["events"][0]["source"]["userId"]
     
     profile = line_bot_api.get_profile(userId)
     
