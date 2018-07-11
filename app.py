@@ -29,12 +29,6 @@ def index():
 
 @app.route('/bot', methods=['POST'])
 
-def tostring(mydict):
-    s = ""
-    for key in mydict:
-        s = s + key + " = " + mydict[key] + "\n"
-    return s
-
 def bot():
     ##LINE_API = 'https://api.line.me/v2/bot/profile/{userId}'
     ##headers = {
@@ -75,7 +69,7 @@ def bot():
     
     if userId not in mydict:
         mydict[userId] = profile.display_name
-        line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = tostring(mydict)))
+        line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = str(mydict)))
 
     
     #roomId = msg_in_json["events"][0]["source"]["roomId"]
