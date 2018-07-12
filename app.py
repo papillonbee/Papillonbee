@@ -12,7 +12,6 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
-# ตรง YOURSECRETKEY ต้องนำมาใส่เองครับจะกล่าวถึงในขั้นตอนต่อๆ ไป
 global LINE_API_KEY
 global mydict
 mydict = {}
@@ -30,15 +29,8 @@ def index():
 @app.route('/bot', methods=['POST'])
 
 def bot():
-    ##LINE_API = 'https://api.line.me/v2/bot/profile/{userId}'
-    ##headers = {
-    ##    'Authorization': LINE_API_KEY
-    ##}
-    ##r = requests.get(LINE_API, headers=headers)
-    # ข้อความที่ต้องการส่งกลับ
     replyStack = list()
    
-    # ข้อความที่ได้รับมา
     msg_in_json = request.get_json()
     msg_in_string = json.dumps(msg_in_json)
     
@@ -57,8 +49,7 @@ def bot():
         echo = (title, address, latitude, longitude)
     else:
         echo = msg_in_string
-    
-    # Token สำหรับตอบกลับ (จำเป็นต้องใช้ในการตอบกลับ)
+
     replyToken = msg_in_json["events"][0]['replyToken']
 
     #sourceType = msg_in_json["events"][0]["source"]["type"]
@@ -79,8 +70,7 @@ def bot():
     ###headers = {'Authorization': LINE_API_KEY}
     ###name = requests.get(LINE_API, headers)
                         
-    # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไป-มา (แบบ json)
-    ###########################replyStack.append(msg_in_string)
+    replyStack.append(msg_in_string)
     if messageType == "text":
         replyStack.append(echo + ', ' + profile.display_name)
     else:
@@ -123,7 +113,6 @@ def push(userId, textList):
     return
     
 def reply(replyToken, echoList, messageType):
-    # Method สำหรับตอบกลับข้อความประเภท text กลับครับ เขียนแบบนี้เลยก็ได้ครับ
     LINE_API = 'https://api.line.me/v2/bot/message/reply'
     headers = {
         'Content-Type': 'application/json; charset=UTF-8',
