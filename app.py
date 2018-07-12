@@ -70,6 +70,9 @@ def calculate_string(s):
         elif i + 4 <= len(s) - 1 and s[i] == 'a' and s[i + 1] == 't' and s[i + 2] == 'a' and s[i + 3] == 'n':
             t = t + 'cmath.' + s[i:i+4]
             i = i + 4
+        elif i + 4 <= len(s) - 1 and s[i] == 's' and s[i + 1] == 'q' and s[i + 2] == 'r' and s[i + 3] == 't':
+            t = t + 'cmath.' + s[i:i+4]
+            i = i + 4
         elif i + 5 <= len(s) - 1 and s[i] == 'g' and s[i + 1] == 'a' and s[i + 2] == 'm' and s[i + 3] == 'm' and s[i + 4] == 'a':
             t = t + 'math.' + s[i:i+5]
             i = i + 5
@@ -165,6 +168,7 @@ def bot():
             if x.imag != 0:
                 echo = str(x)
                 echo = echo.replace('j', 'i')
+                echo = echo[1:len(echo)-1]
             else:
                 echo = str(x)
         line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = Id + ", " + userId + ", " + profile.display_name + ", " + echo))
