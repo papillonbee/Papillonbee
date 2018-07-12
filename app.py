@@ -76,7 +76,7 @@ def bot():
     #        writer = csv.writer(f)
     #        writer.writerow([userId, profile.display_name]
     
-    line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = userId + " = " + profile.display_name))
+    line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = userId + ", " + profile.display_name))
     
     if messageType == "text":
         replyStack.append(echo + ', ' + profile.display_name)
