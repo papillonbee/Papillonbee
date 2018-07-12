@@ -52,22 +52,31 @@ def bot():
 
     replyToken = msg_in_json["events"][0]['replyToken']
 
-    #sourceType = msg_in_json["events"][0]["source"]["type"]
-    #userId = msg_in_json["events"][0]["source"][sourceType + "Id"]
-    userId = msg_in_json["events"][0]["source"]["userId"]
+    sourceType = msg_in_json["events"][0]["source"]["type"]
+    userId = msg_in_json["events"][0]["source"][sourceType + "Id"]
+    #userId = msg_in_json["events"][0]["source"]["userId"]
     
     replyStack.append(msg_in_string)
     
-    
+    if sourceType == "user":
+        profile = line_bot_api.get_profile(userId)
+        if userId not in mydict:
+            mydict[userId] = profile.display_name
+            line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = str(mydict)))
+    if sourceType == "room":
+        profile = line_bot_api.get_room_member_ids(userId)
+        arr = profile.member_ids
+        while profile.next != None:
+            arr = arr + line_bot_api.get_room_member_ids(userId, profile.next)
+        line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = str(arr)))
+        
+        
     reply(replyToken, replyStack[:5], messageType)
     
     
-    profile = line_bot_api.get_profile(userId)
     
-    if userId not in mydict:
-        mydict[userId] = profile.display_name
-        line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = str(mydict)))
-
+    
+    
     
     #roomId = msg_in_json["events"][0]["source"]["roomId"]
     #groupId = msg_in_json["events"][0]["source"]["groupId"]
