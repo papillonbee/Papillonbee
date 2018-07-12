@@ -2,6 +2,8 @@ from flask import Flask, request
 import json
 import requests
 import csv
+import math
+import cmath
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -14,8 +16,6 @@ from linebot.models import (
 )
 
 global LINE_API_KEY
-global mydict
-mydict = {}
 LINE_API_KEY = 'Bearer zbzJP1V5BiTWGBUzUAwSo+139oJZ7LUuHdD2AMP4NMTXl7H37EExGqi6l3ciIs51ESQMGCkmq17KIy/MbSbjhD0abjEAjs4+RlZ3iT7bJlT9qTklgrL5QgXzDn+j5YUj3d6PzMn8ngRHB4ibYf1RpQdB04t89/1O/w1cDnyilFU='
 
 app = Flask(__name__)
@@ -23,6 +23,84 @@ app = Flask(__name__)
 line_bot_api = LineBotApi('zbzJP1V5BiTWGBUzUAwSo+139oJZ7LUuHdD2AMP4NMTXl7H37EExGqi6l3ciIs51ESQMGCkmq17KIy/MbSbjhD0abjEAjs4+RlZ3iT7bJlT9qTklgrL5QgXzDn+j5YUj3d6PzMn8ngRHB4ibYf1RpQdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('c6d40237131458c24f391675e4d8968a')
 
+def calculate_string(s):
+    t = ''
+    i = 0
+    j = 0
+    while i < len(s):
+        if i + 3 <= len(s) - 1 and s[i] == 'e' and s[i + 1] == 'x' and s[i + 2] == 'p':
+            t = t + 'cmath.' + s[i:i+3]
+            i = i + 3
+        elif i + 3 <= len(s) - 1 and s[i] == 'l' and s[i + 1] == 'o' and s[i + 2] == 'g':
+            t = t + 'cmath.' + s[i:i+3]
+            i = i + 3
+        elif i + 4 <= len(s) - 1 and s[i] == 's' and s[i + 1] == 'i' and s[i + 2] == 'n' and s[i + 3] == 'h':
+            t = t + 'cmath.' + s[i:i+4]
+            i = i + 4
+        elif i + 4 <= len(s) - 1 and s[i] == 'c' and s[i + 1] == 'o' and s[i + 2] == 's' and s[i + 3] == 'h':
+            t = t + 'cmath.' + s[i:i+4]
+            i = i + 4
+        elif i + 4 <= len(s) - 1 and s[i] == 't' and s[i + 1] == 'a' and s[i + 2] == 'n' and s[i + 3] == 'h':
+            t = t + 'cmath.' + s[i:i+4]
+            i = i + 4
+        elif i + 3 <= len(s) - 1 and s[i] == 's' and s[i + 1] == 'i' and s[i + 2] == 'n':
+            t = t + 'cmath.' + s[i:i+3]
+            i = i + 3
+        elif i + 3 <= len(s) - 1 and s[i] == 'c' and s[i + 1] == 'o' and s[i + 2] == 's':
+            t = t + 'cmath.' + s[i:i+3]
+            i = i + 3
+        elif i + 3 <= len(s) - 1 and s[i] == 't' and s[i + 1] == 'a' and s[i + 2] == 'n':
+            t = t + 'cmath.' + s[i:i+3]
+            i = i + 3
+        elif i + 5 <= len(s) - 1 and s[i] == 'a' and s[i + 1] == 's' and s[i + 2] == 'i' and s[i + 3] == 'n' and s[i + 4] == 'h':
+            t = t + 'cmath.' + s[i:i+5]
+            i = i + 5
+        elif i + 5 <= len(s) - 1 and s[i] == 'a' and s[i + 1] == 'c' and s[i + 2] == 'o' and s[i + 3] == 's' and s[i + 4] == 'h':
+            t = t + 'cmath.' + s[i:i+5]
+            i = i + 5
+        elif i + 5 <= len(s) - 1 and s[i] == 'a' and s[i + 1] == 't' and s[i + 2] == 'a' and s[i + 3] == 'n' and s[i + 4] == 'h':
+            t = t + 'cmath.' + s[i:i+5]
+            i = i + 5
+        elif i + 4 <= len(s) - 1 and s[i] == 'a' and s[i + 1] == 's' and s[i + 2] == 'i' and s[i + 3] == 'n':
+            t = t + 'cmath.' + s[i:i+4]
+            i = i + 4
+        elif i + 4 <= len(s) - 1 and s[i] == 'a' and s[i + 1] == 'c' and s[i + 2] == 'o' and s[i + 3] == 's':
+            t = t + 'cmath.' + s[i:i+4]
+            i = i + 4
+        elif i + 4 <= len(s) - 1 and s[i] == 'a' and s[i + 1] == 't' and s[i + 2] == 'a' and s[i + 3] == 'n':
+            t = t + 'cmath.' + s[i:i+4]
+            i = i + 4
+        elif i + 1 <= len(s) - 1 and s[i] == 'p' and s[i + 1] == 'i':
+            t = t + 'cmath.' + s[i:i+2]
+            i = i + 2
+        elif i <= len(s) - 1 and s[i] == '^':
+            t = t + '**'
+            i = i + 1
+        elif s[i] == 'j':
+            t = t + s[i]
+            i = i + 1
+        elif s[i].isalpha():
+            i = i + 1
+            j = j + 1
+        else:
+            t = t + s[i]
+            i = i + 1
+
+    try:
+        if j > 0:
+            raise Exception('UnsupportedCharacter')
+
+        u = eval(t)
+        if u.imag == 0:
+            print(u.real)
+            return u.real
+        else:
+            print(u)
+            return u
+    except (SyntaxError, ZeroDivisionError, TypeError, NameError, Exception) as error:
+        print(error)
+        return None
+    
 @app.route('/')
 def index():
     return 'This is chatbot server.'
@@ -79,6 +157,9 @@ def bot():
     
     
     if messageType == "text":
+        x = calculate_string(echo)
+        if x is not None:
+            echo = x
         line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = Id + ", " + userId + ", " + profile.display_name + ", " + echo))
         replyStack.append(echo + ', ' + profile.display_name)
     else:
