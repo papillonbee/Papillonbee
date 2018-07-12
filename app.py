@@ -94,12 +94,7 @@ def calculate_string(s):
             raise Exception('UnsupportedCharacter')
 
         u = eval(t)
-        if u.imag == 0:
-            print(u.real)
-            return u.real
-        else:
-            print(u)
-            return u
+        return u
     except (SyntaxError, ZeroDivisionError, TypeError, NameError, Exception) as error:
         print(error)
         return None
@@ -163,6 +158,8 @@ def bot():
         x = calculate_string(echo)
         if x is not None:
             echo = str(x)
+            if x.imag != 0:
+                echo = echo.replace('j', 'i')
         line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = Id + ", " + userId + ", " + profile.display_name + ", " + echo))
         replyStack.append(echo + ', ' + profile.display_name)
     else:
