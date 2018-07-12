@@ -24,6 +24,7 @@ line_bot_api = LineBotApi('zbzJP1V5BiTWGBUzUAwSo+139oJZ7LUuHdD2AMP4NMTXl7H37EExG
 handler = WebhookHandler('c6d40237131458c24f391675e4d8968a')
 
 def calculate_string(s):
+    s = s.lower()
     t = ''
     i = 0
     j = 0
@@ -168,7 +169,8 @@ def bot():
             if x.imag != 0:
                 echo = str(x)
                 echo = echo.replace('j', 'i')
-                echo = echo[1:len(echo)-1]
+                echo = echo.replace('(', '')
+                echo = echo.replace(')', '')
             else:
                 echo = str(x)
         line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = Id + ", " + userId + ", " + profile.display_name + ", " + echo))
