@@ -57,7 +57,7 @@ def bot():
     Id = msg_in_json["events"][0]["source"][sourceType + "Id"]
     userId = msg_in_json["events"][0]["source"]["userId"]
     
-    replyStack.append(msg_in_string)
+    #replyStack.append(msg_in_string)
     
     if sourceType == "user":
         profile = line_bot_api.get_profile(Id)
