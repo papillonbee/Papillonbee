@@ -159,7 +159,7 @@ def bot():
     if messageType == "text":
         x = calculate_string(echo)
         if x is not None:
-            echo = x
+            echo = str(x)
         line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = Id + ", " + userId + ", " + profile.display_name + ", " + echo))
         replyStack.append(echo + ', ' + profile.display_name)
     else:
