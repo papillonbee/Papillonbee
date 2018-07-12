@@ -80,6 +80,9 @@ def calculate_string(s):
         elif i + 1 <= len(s) - 1 and s[i] == 'p' and s[i + 1] == 'i':
             t = t + 'cmath.' + s[i:i+2]
             i = i + 2
+        elif i <= len(s) - 1 and s[i] == 'x':
+            t = t + '^'
+            i = i + 1
         elif i <= len(s) - 1 and s[i] == '^':
             t = t + '**'
             i = i + 1
