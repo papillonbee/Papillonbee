@@ -56,6 +56,12 @@ def bot():
     #userId = msg_in_json["events"][0]["source"][sourceType + "Id"]
     userId = msg_in_json["events"][0]["source"]["userId"]
     
+    replyStack.append(msg_in_string)
+    
+    
+    reply(replyToken, replyStack[:5], messageType)
+    
+    
     profile = line_bot_api.get_profile(userId)
     
     if userId not in mydict:
@@ -70,12 +76,11 @@ def bot():
     ###headers = {'Authorization': LINE_API_KEY}
     ###name = requests.get(LINE_API, headers)
                         
-    replyStack.append(msg_in_string)
+    
     if messageType == "text":
         replyStack.append(echo + ', ' + profile.display_name)
     else:
         replyStack.append(echo)
-        
         
     reply(replyToken, replyStack[:5], messageType)
     
