@@ -1,6 +1,7 @@
 from flask import Flask, request
 import json
 import requests
+import csv
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -60,34 +61,22 @@ def bot():
     
     if sourceType == "user":
         profile = line_bot_api.get_profile(Id)
-        if userId not in mydict:
-            mydict[userId] = profile.display_name
-            line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = str(mydict)))
     if sourceType == "room":
         profile = line_bot_api.get_room_member_profile(Id, userId)
-        if userId not in mydict:
-            mydict[userId] = profile.display_name
-            line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = str(mydict)))
     if sourceType == "group":
         profile = line_bot_api.get_group_member_profile(Id, userId)
-        if userId not in mydict:
-            mydict[userId] = profile.display_name
-            line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = str(mydict)))
-       
+        
+    dic = {}
+    with open('userId.csv', newline = '') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            dic[row[0]] = row[1]
+    if userId not in dic:
+        with open('userId.csv', 'a' newline = '') as f:
+            writer = csv.writer(f)
+            writer.writerow([userId, profile.display_name]
     
     
-    
-    
-    
-    
-    
-    #roomId = msg_in_json["events"][0]["source"]["roomId"]
-    #groupId = msg_in_json["events"][0]["source"]["groupId"]
-    
-    ###LINE_API = 'https://api.line.me/v2/bot/profile/{userId}'
-    ###headers = {'Authorization': LINE_API_KEY}
-    ###name = requests.get(LINE_API, headers)
-                        
     
     if messageType == "text":
         replyStack.append(echo + ', ' + profile.display_name)
