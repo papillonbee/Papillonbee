@@ -70,14 +70,17 @@ def calculate_string(s):
         elif i + 4 <= len(s) - 1 and s[i] == 'a' and s[i + 1] == 't' and s[i + 2] == 'a' and s[i + 3] == 'n':
             t = t + 'cmath.' + s[i:i+4]
             i = i + 4
+        elif i + 5 <= len(s) - 1 and s[i] == 'g' and s[i + 1] == 'a' and s[i + 2] == 'm' and s[i + 3] == 'm' and s[i + 4] == 'a':
+            t = t + 'math.' + s[i:i+5]
+            i = i + 5
         elif i + 1 <= len(s) - 1 and s[i] == 'p' and s[i + 1] == 'i':
             t = t + 'cmath.' + s[i:i+2]
             i = i + 2
         elif i <= len(s) - 1 and s[i] == '^':
             t = t + '**'
             i = i + 1
-        elif s[i] == 'j':
-            t = t + s[i]
+        elif s[i] == 'i':
+            t = t + 'j'
             i = i + 1
         elif s[i].isalpha():
             i = i + 1
