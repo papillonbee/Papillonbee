@@ -182,7 +182,14 @@ def bot():
         line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = Id + ", " + userId + ", " + profile.display_name + ", " + str(echo)))
         replyStack.append(echo)
         
-    reply(replyToken, replyStack[:5], messageType)
+        
+    if messageType == "text" and echo == "leave":
+        if sourceType == "room":
+            line_bot_api.leave_room(Id)
+        if sourceType == "group":
+            line_bot_api.leave_group(Id)
+    else:
+        reply(replyToken, replyStack[:5], messageType)
     
     
     
