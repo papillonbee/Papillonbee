@@ -183,7 +183,7 @@ def bot():
         replyStack.append(echo)
         
         
-    if messageType == "text" and echo == "leave":
+    if messageType == "text" and echo.lower() == "leave":
         if sourceType == "room":
             line_bot_api.leave_room(Id)
         if sourceType == "group":
