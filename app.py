@@ -116,33 +116,6 @@ def index():
     return 'This is chatbot server.'
 
 @app.route('/bot', methods=['POST'])
-
-def processRequest(req):
-    # Parsing the POST request body into a dictionary for easy access.
-    req_dict = json.loads(request.data)
-    print(req_dict)
-    # Accessing the fields on the POST request boduy of API.ai invocation of the webhook
-    intent = req_dict["queryResult"]["intent"]["displayName"]
-
-    if intent == 'greeting':
-
-        speech = "ได้เลย จัดให้!"
-
-    else:
-
-        speech = "ผมไม่เข้าใจ คุณต้องการอะไร"
-
-    res = makeWebhookResult(speech)
-
-    return res
-
-
-def makeWebhookResult(speech):
-
-    return {
-  "fulfillmentText": speech
-    }
-
 def bot():
     req = request.get_json(silent=True, force=True)
     res = processRequest(req)
@@ -236,6 +209,33 @@ def bot():
     #push(groupId, ["eiei"])
     #reply(replyToken, "eiei")
     return 'OK',200
+
+def processRequest(req):
+    # Parsing the POST request body into a dictionary for easy access.
+    req_dict = json.loads(request.data)
+    print(req_dict)
+    # Accessing the fields on the POST request boduy of API.ai invocation of the webhook
+    intent = req_dict["queryResult"]["intent"]["displayName"]
+
+    if intent == 'greeting':
+
+        speech = "ได้เลย จัดให้!"
+
+    else:
+
+        speech = "ผมไม่เข้าใจ คุณต้องการอะไร"
+
+    res = makeWebhookResult(speech)
+
+    return res
+
+
+def makeWebhookResult(speech):
+
+    return {
+  "fulfillmentText": speech
+    }
+
 
 def push(userId, textList):
     LINE_API = 'https://api.line.me/v2/bot/message/push'
