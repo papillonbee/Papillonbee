@@ -196,6 +196,7 @@ def bot():
             line_bot_api.leave_group(Id)
     else:
         reply(replyToken, replyStack[:5], messageType)
+        push(userId, msg_in_json)
     
     
     
