@@ -197,7 +197,6 @@ def bot():
     else:
         reply(replyToken, replyStack[:5], messageType)
     
-    push(Id, ['eiei'])
     push(Id, [msg_in_string])
     ##########push(userId, ["eiei"])
     
