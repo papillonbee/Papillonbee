@@ -124,7 +124,7 @@ def processRequest(req):
     # Accessing the fields on the POST request boduy of API.ai invocation of the webhook
     intent = req_dict["queryResult"]["intent"]["displayName"]
 
-    if intent == 'ถามหนังน่าดู':
+    if intent == 'greeting':
 
         speech = "ได้เลย จัดให้!"
 
@@ -144,12 +144,12 @@ def makeWebhookResult(speech):
     }
 
 def bot():
-    req = request.get_json(silent=True, force=True)
-    res = processRequest(req)
-    res = json.dumps(res, indent=4)
-    r = make_response(res)
-    r.headers['Content-Type'] = 'application/json'
-    return r
+    #req = request.get_json(silent=True, force=True)
+    #res = processRequest(req)
+    #res = json.dumps(res, indent=4)
+    #r = make_response(res)
+    #r.headers['Content-Type'] = 'application/json'
+    #return r
 
     replyStack = list()
    
