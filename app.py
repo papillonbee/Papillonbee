@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, make_response
 import json
 import requests
 import csv
@@ -121,8 +121,12 @@ def bot():
     replyStack = list()
    
     msg_in_json = request.get_json()
+    msg_in_string = processRequest(msg_in_json)
     msg_in_string = json.dumps(msg_in_json)
+    r = make_response(msg_in_string)
+    r.headers['Content-Type'] = 'application/jspn'
     
+    return r
     messageType = msg_in_json["events"][0]["message"]["type"]
     if messageType == "text":
         echo = msg_in_json["events"][0]["message"]["text"]
@@ -203,6 +207,24 @@ def bot():
     #push(groupId, ["eiei"])
     #reply(replyToken, "eiei")
     return 'OK',200
+
+def processRequest(req):
+    req_dict = json.loads(request.data)
+    intent = req_dict["queryResult"]["intent"]["displayName"]
+    
+    if intent == 'สวัสดี':
+        speech = 'ไงควย'
+    else:
+        speech = 'อะไรนะ'
+        
+    res = makeWebhookResult(speech)
+    
+    return res
+
+def makeWebhookResullt(speech):
+    return {
+        "fulfillmentText": speech
+    }
 
 def push(userId, textList):
     LINE_API = 'https://api.line.me/v2/bot/message/push'
