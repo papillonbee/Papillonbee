@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, make_response
 import json
 import requests
 import csv
@@ -117,7 +117,40 @@ def index():
 
 @app.route('/bot', methods=['POST'])
 
+def processRequest(req):
+    # Parsing the POST request body into a dictionary for easy access.
+    req_dict = json.loads(request.data)
+    print(req_dict)
+    # Accessing the fields on the POST request boduy of API.ai invocation of the webhook
+    intent = req_dict["queryResult"]["intent"]["displayName"]
+
+    if intent == 'ถามหนังน่าดู':
+
+        speech = "ได้เลย จัดให้!"
+
+    else:
+
+        speech = "ผมไม่เข้าใจ คุณต้องการอะไร"
+
+    res = makeWebhookResult(speech)
+
+    return res
+
+
+def makeWebhookResult(speech):
+
+    return {
+  "fulfillmentText": speech
+    }
+
 def bot():
+    req = request.get_json(silent=True, force=True)
+    res = processRequest(req)
+    res = json.dumps(res, indent=4)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
+
     replyStack = list()
    
     msg_in_json = request.get_json()
