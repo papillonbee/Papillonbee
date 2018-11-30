@@ -117,12 +117,12 @@ def index():
 
 @app.route('/bot', methods=['POST'])
 def bot():
-    req = request.get_json(silent=True, force=True)
-    res = processRequest(req)
-    res = json.dumps(res, indent=4)
-    r = make_response(res)
-    r.headers['Content-Type'] = 'application/json'
-    return r
+    #req = request.get_json(silent=True, force=True)
+    #res = processRequest(req)
+    #res = json.dumps(res, indent=4)
+    #r = make_response(res)
+    #r.headers['Content-Type'] = 'application/json'
+    #return r
 
     replyStack = list()
    
