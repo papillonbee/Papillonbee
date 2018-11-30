@@ -221,7 +221,7 @@ def processRequest(req):
     # Accessing the fields on the POST request boduy of API.ai invocation of the webhook
     intent = req_dict["queryResult"]["intent"]["displayName"]
 
-    if intent == 'greeting':
+    if intent == 'Default Welcome Intent':
 
         speech = "ได้เลย จัดให้!"
 
