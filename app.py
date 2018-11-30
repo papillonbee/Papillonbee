@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response
+from flask import Flask, request
 import json
 import requests
 import csv
@@ -120,13 +120,9 @@ def index():
 def bot():
     replyStack = list()
    
-    msg_in_json = request.get_json(silent=True,force=True)
-    msg_in_string = processRequest(msg_in_json)
-    msg_in_string = json.dumps(msg_in_json,indent=4)
-    r = make_response(msg_in_string)
-    r.headers['Content-Type'] = 'application/jspn'
+    msg_in_json = request.get_json()
+    msg_in_string = json.dumps(msg_in_json)
     
-    return r
     messageType = msg_in_json["events"][0]["message"]["type"]
     if messageType == "text":
         echo = msg_in_json["events"][0]["message"]["text"]
@@ -208,24 +204,6 @@ def bot():
     #reply(replyToken, "eiei")
     return 'OK',200
 
-def processRequest(req):
-    req_dict = json.loads(request.data)
-    intent = req_dict["queryResult"]["intent"]["displayName"]
-    
-    if intent == 'สวัสดี':
-        speech = 'ไงควย'
-    else:
-        speech = 'อะไรนะ'
-        
-    res = makeWebhookResult(speech)
-    
-    return res
-
-def makeWebhookResullt(speech):
-    return {
-        "fulfillmentText": speech
-    }
-
 def push(userId, textList):
     LINE_API = 'https://api.line.me/v2/bot/message/push'
     headers = {
@@ -293,6 +271,4 @@ def reply(replyToken, echoList, messageType):
     return
 
 if __name__ == '__main__':
-    port = int(os.getenv('PORT',5000))
-    
-    app.run(debug=False,port=port,host='0.0.0.0',threaded=True)
+    app.run()
