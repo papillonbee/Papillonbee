@@ -196,10 +196,9 @@ def bot():
             line_bot_api.leave_group(Id)
     else:
         reply(replyToken, replyStack[:5], messageType)
-        reply(replyToken, [msg_in_json], messageType)
     
     
-    
+    push(Id, msg_in_string)
     ##########push(userId, ["eiei"])
     
     
