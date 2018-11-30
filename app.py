@@ -182,6 +182,12 @@ def bot():
                 echo = echo.replace(')', '')
             else:
                 echo = str(x)
+                req = request.get_json(silent=True, force=True)
+                res = processRequest(req)
+                res = json.dumps(res, indent=4)
+                r = make_response(res)
+                #r.headers['Content-Type'] = 'application/json'
+                #return r
         line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = Id + ", " + userId + ", " + profile.display_name + ", " + echo))
         replyStack.append(echo + ', ' + profile.display_name)
     else:
