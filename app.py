@@ -120,9 +120,9 @@ def index():
 def bot():
     replyStack = list()
    
-    msg_in_json = request.get_json()
+    msg_in_json = request.get_json(silent=True,force=True)
     msg_in_string = processRequest(msg_in_json)
-    msg_in_string = json.dumps(msg_in_json)
+    msg_in_string = json.dumps(msg_in_json,indent=4)
     r = make_response(msg_in_string)
     r.headers['Content-Type'] = 'application/jspn'
     
@@ -293,4 +293,6 @@ def reply(replyToken, echoList, messageType):
     return
 
 if __name__ == '__main__':
-    app.run()
+    port = int(os.getenv('PORT',5000))
+    
+    app.run(debug=False,port=port,host='0.0.0.0',threaded=True)
