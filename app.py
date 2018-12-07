@@ -28,7 +28,8 @@ for i in txt:
         t = ''
         continue
     t += i
-    
+
+import numpy, scipy
 #from gensim import corpora, models, similarities
 #import pythainlp as tnlp
 #my_text = [list(filter(lambda a: a != ' ' and a != '  ' and a != '   ', tnlp.word_tokenize(line[:-1].lower()))) for line in Rabbit]
