@@ -5,6 +5,18 @@ import csv
 import math
 import cmath
 
+response = requests.get('https://gist.githubusercontent.com/papillonbee/227d8a1c26303c815614ade026906b4c/raw/c5b9745ce95d571a40190aa6128ef39973c43dab/rabbit_dictionary.txt')
+txt = response.text.replace('\n',',')
+txt += ','
+t = ''
+t_in = []
+for i in txt:
+    if i == ',':
+        t_in.append(t)
+        t = ''
+        continue
+    t += i
+
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -197,7 +209,8 @@ def bot():
     else:
         reply(replyToken, replyStack[:5], messageType)
     
-    push(Id, [msg_in_string])
+    #push(Id, [msg_in_string])
+    push(Id, t_in)
     ##########push(userId, ["eiei"])
     
     
@@ -207,33 +220,6 @@ def bot():
     #push(groupId, ["eiei"])
     #reply(replyToken, "eiei")
     return 'OK',200
-
-def processRequest(req):
-    # Parsing the POST request body into a dictionary for easy access.
-    req_dict = json.loads(request.data)
-    print(req_dict)
-    # Accessing the fields on the POST request boduy of API.ai invocation of the webhook
-    intent = req_dict["queryResult"]["intent"]["displayName"]
-
-    if intent == 'Default Welcome Intent':
-
-        speech = "ได้เลย จัดให้!"
-
-    else:
-
-        speech = "ผมไม่เข้าใจ คุณต้องการอะไร"
-
-    res = makeWebhookResult(speech)
-
-    return res
-
-
-def makeWebhookResult(speech):
-
-    return {
-  "fulfillmentText": speech
-    }
-
 
 def push(userId, textList):
     LINE_API = 'https://api.line.me/v2/bot/message/push'
