@@ -238,7 +238,6 @@ def bot():
     
     #push(Id, [msg_in_string])
     push(Id, [Rabbit[2079], ppllnb[2079]])
-    push(Id, 
     ##########push(userId, ["eiei"])
     
     
