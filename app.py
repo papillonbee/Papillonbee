@@ -208,20 +208,20 @@ def bot():
         x = calculate_string(echo)
         if x is not None:
             if x.imag != 0:
-                echo = str(x)
-                echo = echo.replace('j', 'i')
-                echo = echo.replace('(', '')
-                echo = echo.replace(')', '')
+                echo2 = str(x)
+                echo2 = echo2.replace('j', 'i')
+                echo2 = echo2.replace('(', '')
+                echo2 = echo2.replace(')', '')
             else:
-                echo = str(x)
+                echo2 = str(x)
         else:
             vec_bow = my_dictionary.doc2bow(list(filter(lambda a: a != ' ' and a != '  ' and a != '   ', tnlp.word_tokenize(echo.lower()))))
             vec_lsi = my_lsi[vec_bow]
             my_index = similarities.MatrixSimilarity(my_lsi[my_corpus])
             my_sims = my_index[vec_lsi]
-            echo = ppllnb[max(enumerate(my_sims), key=lambda item:item[1])[0]]
+            echo2 = ppllnb[max(enumerate(my_sims), key=lambda item:item[1])[0]]
         line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = Id + ", " + userId + ", " + profile.display_name + ", " + echo))
-        replyStack.append(echo + ', ' + profile.display_name)
+        replyStack.append(echo2 + ', ' + profile.display_name)
     else:
         line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = Id + ", " + userId + ", " + profile.display_name + ", " + str(echo)))
         replyStack.append(echo)
