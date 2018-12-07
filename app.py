@@ -236,7 +236,7 @@ def bot():
         reply(replyToken, replyStack[:5], messageType)
     
     #push(Id, [msg_in_string])
-    push(Id, [Rabbit[2079], ppllnb[2079], str(vec_bow)])
+    #push(Id, [Rabbit[2079], ppllnb[2079], str(vec_bow)])
     ##########push(userId, ["eiei"])
     
     
