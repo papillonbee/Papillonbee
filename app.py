@@ -9,14 +9,26 @@ response = requests.get('https://gist.githubusercontent.com/papillonbee/227d8a1c
 txt = response.text.replace('\n',',')
 txt += ','
 t = ''
-t_in = []
+Rabbit = []
 for i in txt:
     if i == ',':
-        t_in.append(t)
+        Rabbit.append(t)
         t = ''
         continue
     t += i
 
+response = requests.get('https://gist.githubusercontent.com/papillonbee/a18a99a59d9372c9b11e2d1828a26c14/raw/862a3cd0560d94fd1b6e00d6bf5490e96529b3e3/ppllnb.txt')
+txt = response.text.replace('\n',',')
+txt += ','
+t = ''
+ppllnb = []
+for i in txt:
+    if i == ',':
+        ppllnb.append(t)
+        t = ''
+        continue
+    t += i
+    
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -210,7 +222,7 @@ def bot():
         reply(replyToken, replyStack[:5], messageType)
     
     #push(Id, [msg_in_string])
-    push(Id, [t_in[0]])
+    push(Id, [Rabbit[0], ppllnb[0]])
     ##########push(userId, ["eiei"])
     
     
