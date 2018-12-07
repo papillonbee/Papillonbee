@@ -29,8 +29,8 @@ for i in txt:
         continue
     t += i
     
-#from gensim import corpora, models, similarities
-#import pythainlp as tnlp
+from gensim import corpora, models, similarities
+import pythainlp as tnlp
 #my_text = [list(filter(lambda a: a != ' ' and a != '  ' and a != '   ', tnlp.word_tokenize(line[:-1].lower()))) for line in Rabbit]
 #my_dictionary = corpora.Dictionary(my_text)
 #my_corpus = [my_dictionary.doc2bow(text) for text in my_text]
