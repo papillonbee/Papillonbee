@@ -31,13 +31,13 @@ for i in txt:
     
 from gensim import corpora, models, similarities
 import pythainlp as tnlp
-my_text = [list(filter(lambda a: a != ' ' and a != '  ' and a != '   ', tnlp.word_tokenize(line[:-1].lower()))) for line in Rabbit]
-my_dictionary = corpora.Dictionary(my_text)
-my_corpus = [my_dictionary.doc2bow(text) for text in my_text]
-my_lsi = models.LsiModel(my_corpus, id2word=my_dictionary, num_topics=200)
-new_doc = 'ขอเย็ดหน่อยสิ'
-vec_bow = my_dictionary.doc2bow(list(filter(lambda a: a != ' ' and a != '  ' and a != '   ', tnlp.word_tokenize(new_doc.lower()))))
-vec_lsi = my_lsi[vec_bow]
+#my_text = [list(filter(lambda a: a != ' ' and a != '  ' and a != '   ', tnlp.word_tokenize(line[:-1].lower()))) for line in Rabbit]
+#my_dictionary = corpora.Dictionary(my_text)
+#my_corpus = [my_dictionary.doc2bow(text) for text in my_text]
+#my_lsi = models.LsiModel(my_corpus, id2word=my_dictionary, num_topics=200)
+#new_doc = 'ขอเย็ดหน่อยสิ'
+#vec_bow = my_dictionary.doc2bow(list(filter(lambda a: a != ' ' and a != '  ' and a != '   ', tnlp.word_tokenize(new_doc.lower()))))
+#vec_lsi = my_lsi[vec_bow]
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -237,7 +237,7 @@ def bot():
         reply(replyToken, replyStack[:5], messageType)
     
     #push(Id, [msg_in_string])
-    push(Id, [Rabbit[2079], ppllnb[2079], str(vec_bow)])
+    push(Id, [Rabbit[2079], ppllnb[2079]])
     push(Id, 
     ##########push(userId, ["eiei"])
     
