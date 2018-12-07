@@ -222,7 +222,7 @@ def bot():
         reply(replyToken, replyStack[:5], messageType)
     
     #push(Id, [msg_in_string])
-    push(Id, [Rabbit[0], ppllnb[0]])
+    push(Id, [Rabbit[2079], ppllnb[2079]])
     ##########push(userId, ["eiei"])
     
     
