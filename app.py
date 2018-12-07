@@ -210,7 +210,7 @@ def bot():
         reply(replyToken, replyStack[:5], messageType)
     
     #push(Id, [msg_in_string])
-    push(Id, t_in)
+    push(Id, [t_in[0]])
     ##########push(userId, ["eiei"])
     
     
