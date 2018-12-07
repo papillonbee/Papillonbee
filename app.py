@@ -6,29 +6,36 @@ import math
 import cmath
 
 response = requests.get('https://gist.githubusercontent.com/papillonbee/227d8a1c26303c815614ade026906b4c/raw/c5b9745ce95d571a40190aa6128ef39973c43dab/rabbit_dictionary.txt')
-txt = response.text.replace('\n',',')
-txt += ','
+txt = response.text.replace('\n','|')
+txt += '|'
 t = ''
 Rabbit = []
 for i in txt:
-    if i == ',':
+    if i == '|':
         Rabbit.append(t)
         t = ''
         continue
     t += i
 
 response = requests.get('https://gist.githubusercontent.com/papillonbee/a18a99a59d9372c9b11e2d1828a26c14/raw/862a3cd0560d94fd1b6e00d6bf5490e96529b3e3/ppllnb.txt')
-txt = response.text.replace('\n',',')
-txt += ','
+txt = response.text.replace('\n','|')
+txt += '|'
 t = ''
 ppllnb = []
 for i in txt:
-    if i == ',':
+    if i == '|':
         ppllnb.append(t)
         t = ''
         continue
     t += i
     
+from gensim import corpora, models, similarities
+import pythainlp as tnlp
+my_text = [list(filter(lambda a: a != ' ' and a != '  ' and a != '   ', tnlp.word_tokenize(line[:-1].lower()))) for line in Rabbit]
+my_dictionary = corpora.Dictionary(my_text)
+my_corpus = [my_dictionary.doc2bow(text) for text in my_text]
+my_lsi = models.LsiModel(my_corpus, id2word=my_dictionary, num_topics=200)
+
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -206,6 +213,11 @@ def bot():
                 echo = echo.replace(')', '')
             else:
                 echo = str(x)
+                vec_bow = my_dictionary.doc2bow(list(filter(lambda a: a != ' ' and a != '  ' and a != '   ', tnlp.word_tokenize(echo.lower()))))
+                vec_lsi = my_lsi[vec_bow]
+                my_index = similarities.MatrixSimilarity(my_lsi[my_corpus])
+                my_sims = my_index[vec_lsi]
+                echo = ppllnb[max(enumerate(my_sims), key=lambda item:item[1])[0]]
         line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = Id + ", " + userId + ", " + profile.display_name + ", " + echo))
         replyStack.append(echo + ', ' + profile.display_name)
     else:
