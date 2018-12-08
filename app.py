@@ -222,7 +222,7 @@ def bot():
             echo2 = ppllnb[max(enumerate(my_sims), key=lambda item:item[1])[0]]
             arr = sorted(enumerate(my_sims), key=lambda item: -item[1])[:5]
             top_5_list = ''
-            top_5_list += 'Top 5 Most Similar\n'
+            top_5_list += 'Top 5 most similar sentence to \'' + echo + '\':\n'
             for i in range(5):
                 top_5_list += str(i+1) + '. Cosine Similarity = ' + str(arr[i][1]) + '\n' + str(Rabbit[arr[i][0]]) + ': ' + str(ppllnb[arr[i][0]])
                 if i != 4:
