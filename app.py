@@ -222,9 +222,9 @@ def bot():
             echo2 = ppllnb[max(enumerate(my_sims), key=lambda item:item[1])[0]]
             arr = sorted(enumerate(my_sims), key=lambda item: -item[1])[:5]
             top_5_list = ''
-            top_5_list += 'Top 5 most similar sentence to \'' + echo + '\':\n'
+            top_5_list += 'Top 5 most similar sentences to \'' + echo + '\':\n'
             for i in range(5):
-                top_5_list += str(i+1) + '. Cosine similarity = ' + str(arr[i][1]) + '\n' + str(Rabbit[arr[i][0]]) + ': ' + str(ppllnb[arr[i][0]])
+                top_5_list += str(i+1) + '.) Cosine similarity = ' + str(arr[i][1]) + '\n' + str(Rabbit[arr[i][0]]) + ': ' + str(ppllnb[arr[i][0]])
                 if i != 4:
                     top_5_list += '\n'
         line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = Id + ", " + userId + ", " + profile.display_name + ", " + echo))
