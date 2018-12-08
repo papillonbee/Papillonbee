@@ -35,7 +35,8 @@ import pythainlp as tnlp
 my_text = [list(filter(lambda a: a != ' ' and a != '  ' and a != '   ', tnlp.word_tokenize(line[:-1].lower()))) for line in Rabbit]
 my_dictionary = corpora.Dictionary(my_text)
 my_corpus = [my_dictionary.doc2bow(text) for text in my_text]
-my_lsi = models.LsiModel(my_corpus, id2word=my_dictionary, num_topics=200)
+tfidf = models.TfidfModel(my_corpus)
+my_lsi = models.LsiModel(tfidf[my_corpus], id2word=my_dictionary, num_topics=200)
 
 from linebot import (
     LineBotApi, WebhookHandler
