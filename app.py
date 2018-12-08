@@ -35,8 +35,7 @@ import pythainlp as tnlp
 my_text = [list(filter(lambda a: a != ' ' and a != '  ' and a != '   ', tnlp.word_tokenize(line[:-1].lower()))) for line in Rabbit]
 my_dictionary = corpora.Dictionary(my_text)
 my_corpus = [my_dictionary.doc2bow(text) for text in my_text]
-tfidf = models.TfidfModel(my_corpus)
-my_lsi = models.LsiModel(tfidf[my_corpus], id2word=my_dictionary, num_topics=200)
+my_lsi = models.LsiModel(my_corpus, id2word=my_dictionary, num_topics=200)
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -221,8 +220,11 @@ def bot():
             my_index = similarities.MatrixSimilarity(my_lsi[my_corpus])
             my_sims = my_index[vec_lsi]
             echo2 = ppllnb[max(enumerate(my_sims), key=lambda item:item[1])[0]]
-            echo3 = str(max(enumerate(my_sims), key=lambda item:item[1]))
-            #echo3 = str(sorted(enumerate(my_sims), key=lambda item: -item[1]))
+            arr = sorted(enumerate(my_sims), key=lambda item: -item[1])[:5]
+            top_5_list = []
+            for i in range(5):
+                top_5_list.append((arr[i][1], Rabbit[arr[i][0]], ppllnb[arr[i][0]]))
+            echo3 = str(top_5_list)
         line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = Id + ", " + userId + ", " + profile.display_name + ", " + echo))
         replyStack.append(echo2 + ', ' + profile.display_name)
     else:
