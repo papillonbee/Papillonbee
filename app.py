@@ -221,6 +221,7 @@ def bot():
             my_index = similarities.MatrixSimilarity(my_lsi[my_corpus])
             my_sims = my_index[vec_lsi]
             echo2 = ppllnb[max(enumerate(my_sims), key=lambda item:item[1])[0]]
+            echo3 = str(sorted(enumerate(my_sims), key=lambda item: -item[1]))
         line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = Id + ", " + userId + ", " + profile.display_name + ", " + echo))
         replyStack.append(echo2 + ', ' + profile.display_name)
     else:
@@ -236,6 +237,7 @@ def bot():
     else:
         reply(replyToken, replyStack[:5], messageType)
     
+    push(Id, [echo3])
     #push(Id, [msg_in_string])
     #push(Id, [Rabbit[2079], ppllnb[2079], str(vec_bow)])
     ##########push(userId, ["eiei"])
