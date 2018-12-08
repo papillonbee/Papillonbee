@@ -221,10 +221,11 @@ def bot():
             my_sims = my_index[vec_lsi]
             echo2 = ppllnb[max(enumerate(my_sims), key=lambda item:item[1])[0]]
             arr = sorted(enumerate(my_sims), key=lambda item: -item[1])[:5]
-            top_5_list = []
+            top_5_list = ''
             for i in range(5):
-                top_5_list.append((arr[i][1], Rabbit[arr[i][0]], ppllnb[arr[i][0]]))
-            echo3 = str(top_5_list)
+                top_5_list += str((arr[i][1], Rabbit[arr[i][0]], ppllnb[arr[i][0]]))
+                if i != 4:
+                    top_5_list += '\n'
         line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = Id + ", " + userId + ", " + profile.display_name + ", " + echo))
         replyStack.append(echo2 + ', ' + profile.display_name)
     else:
@@ -240,7 +241,7 @@ def bot():
     else:
         reply(replyToken, replyStack[:5], messageType)
     
-    push(Id, [echo3])
+    push(Id, [top_5_list])
     #push(Id, [msg_in_string])
     #push(Id, [Rabbit[2079], ppllnb[2079], str(vec_bow)])
     ##########push(userId, ["eiei"])
