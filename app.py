@@ -32,14 +32,7 @@ for i in txt:
 import numpy, scipy
 from gensim import corpora, models, similarities
 import pythainlp as tnlp
-
 my_text = [list(filter(lambda a: a != ' ' and a != '  ' and a != '   ', tnlp.word_tokenize(line[:-1].lower()))) for line in Rabbit]
-#stoplist = set('i a about an are as at be by com for from how in is it of on or that the this to was what when where who will with the www ไว้ ไม่ ไป ได้ ให้ ใน โดย แห่ง แล้ว และ แรก แบบ แต่ เอง เห็น เลย เริ่ม เรา เมื่อ เพื่อ เพราะ เป็นการ เป็น เปิดเผย เปิด เนื่องจาก เดียวกัน เดียว เช่น เฉพาะ เคย เข้า เขา อีก อาจ อะไร ออก อย่าง อยู่ อยาก หาก หลาย หลังจาก หลัง หรือ หนึ่ง ส่วน ส่ง สุด สําหรับ ว่า วัน ลง ร่วม ราย รับ ระหว่าง รวม ยัง มี มาก มา พร้อม พบ ผ่าน ผล บาง น่า นี้ นํา นั้น นัก นอกจาก ทุก ที่สุด ที่ ทําให้ ทํา ทาง ทั้งนี้ ง ถ้า ถูก ถึง ต้อง ต่างๆ ต่าง ต่อ ตาม ตั้งแต่ ตั้ง ด้าน ด้วย ดัง ซึ่ง ช่วง จึง จาก จัด จะ คือ ความ ครั้ง คง ขึ้น ของ ขอ ขณะ ก่อน ก็ การ กับ กัน กว่า กล่าว'.split())
-#my_text = [[word for word in text if word not in stoplist] for text in my_text]
-#all_tokens = sum(my_text, [])
-#tokens_once = set(word for word in set(all_tokens) if all_tokens.count(word) == 1)
-#my_text = [[word for word in text if word not in tokens_once] for text in my_text]
-
 my_dictionary = corpora.Dictionary(my_text)
 my_corpus = [my_dictionary.doc2bow(text) for text in my_text]
 my_lsi = models.LsiModel(my_corpus, id2word=my_dictionary, num_topics=200)
@@ -58,7 +51,7 @@ global LINE_API_KEY
 LINE_API_KEY = 'Bearer zbzJP1V5BiTWGBUzUAwSo+139oJZ7LUuHdD2AMP4NMTXl7H37EExGqi6l3ciIs51ESQMGCkmq17KIy/MbSbjhD0abjEAjs4+RlZ3iT7bJlT9qTklgrL5QgXzDn+j5YUj3d6PzMn8ngRHB4ibYf1RpQdB04t89/1O/w1cDnyilFU='
 
 app = Flask(__name__)
-
+ 
 line_bot_api = LineBotApi('zbzJP1V5BiTWGBUzUAwSo+139oJZ7LUuHdD2AMP4NMTXl7H37EExGqi6l3ciIs51ESQMGCkmq17KIy/MbSbjhD0abjEAjs4+RlZ3iT7bJlT9qTklgrL5QgXzDn+j5YUj3d6PzMn8ngRHB4ibYf1RpQdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('c6d40237131458c24f391675e4d8968a')
 
@@ -214,19 +207,20 @@ def bot():
     if messageType == "text":
         x = calculate_string(echo)
         if x is not None:
-            echo2 = str(x)
             if x.imag != 0:
+                echo2 = str(x)
                 echo2 = echo2.replace('j', 'i')
                 echo2 = echo2.replace('(', '')
                 echo2 = echo2.replace(')', '')
+            else:
+                echo2 = str(x)
         else:
             vec_bow = my_dictionary.doc2bow(list(filter(lambda a: a != ' ' and a != '  ' and a != '   ', tnlp.word_tokenize(echo.lower()))))
             vec_lsi = my_lsi[vec_bow]
             my_index = similarities.MatrixSimilarity(my_lsi[my_corpus])
             my_sims = my_index[vec_lsi]
-            #echo2 = ppllnb[max(enumerate(my_sims), key=lambda item:item[1])[0]]
+            echo2 = ppllnb[max(enumerate(my_sims), key=lambda item:item[1])[0]]
             arr = sorted(enumerate(my_sims), key=lambda item: -item[1])[:5]
-            echo2 = ppllnb[arr[0][0]]
             top_5_list = ''
             top_5_list += 'Top 5 most similar sentences to \'' + echo + '\':\n'
             for i in range(5):
