@@ -38,7 +38,7 @@ my_text = [list(filter(lambda a: a != ' ' and a != '  ' and a != '   ', tnlp.wor
 #my_text = [[word for word in text if word not in stoplist] for text in my_text]
 #all_tokens = sum(my_text, [])
 #tokens_once = set(word for word in set(all_tokens) if all_tokens.count(word) == 1)
-my_text = [[word for word in text if word not in tokens_once] for text in my_text]
+#my_text = [[word for word in text if word not in tokens_once] for text in my_text]
 
 my_dictionary = corpora.Dictionary(my_text)
 my_corpus = [my_dictionary.doc2bow(text) for text in my_text]
