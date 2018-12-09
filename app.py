@@ -219,8 +219,9 @@ def bot():
             vec_lsi = my_lsi[vec_bow]
             my_index = similarities.MatrixSimilarity(my_lsi[my_corpus])
             my_sims = my_index[vec_lsi]
-            echo2 = ppllnb[max(enumerate(my_sims), key=lambda item:item[1])[0]]
+            #echo2 = ppllnb[max(enumerate(my_sims), key=lambda item:item[1])[0]]
             arr = sorted(enumerate(my_sims), key=lambda item: -item[1])[:5]
+            echo2 = ppllnb[arr[0][0]]
             top_5_list = ''
             top_5_list += 'Top 5 most similar sentences to \'' + echo + '\':\n'
             for i in range(5):
