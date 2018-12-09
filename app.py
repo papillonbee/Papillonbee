@@ -21,10 +21,10 @@ response = requests.get('https://gist.githubusercontent.com/papillonbee/a18a99a5
 txt = response.text.replace('\n','|')
 txt += '|'
 t = ''
-ppllnb = []
+Papillonbee = []
 for i in txt:
     if i == '|':
-        ppllnb.append(t)
+        Papillonbee.append(t)
         t = ''
         continue
     t += i
@@ -226,13 +226,13 @@ def bot():
             vec_lsi = my_lsi[vec_bow]
             my_index = similarities.MatrixSimilarity(my_lsi[my_corpus])
             my_sims = my_index[vec_lsi]
-            #echo2 = ppllnb[max(enumerate(my_sims), key=lambda item:item[1])[0]]
+            #echo2 = Papillonbee[max(enumerate(my_sims), key=lambda item:item[1])[0]]
             arr = sorted(enumerate(my_sims), key=lambda item: -item[1])[:5]
-            echo2 = ppllnb[arr[0][0]]
+            echo2 = Papillonbee[arr[0][0]]
             top_5_list = ''
-            top_5_list += 'Top 5 most similar sentences to \'' + echo + '\':\n'
+            top_5_list += 'Top 5 most similar texts to \'' + echo + '\':\n'
             for i in range(5):
-                top_5_list += str(i+1) + '.)' + str(Rabbit[arr[i][0]]) + ': ' + str(ppllnb[arr[i][0]]) + '\nCosine similarity = ' + str(arr[i][1])
+                top_5_list += str(i+1) + '.)' + str(Rabbit[arr[i][0]]) + ': ' + str(Papillonbee[arr[i][0]]) + '\nCosine similarity = ' + str(arr[i][1])
                 if i != 4:
                     top_5_list += '\n'
         line_bot_api.push_message('U6f619c271c14c091dd8054c3e14d2461', TextSendMessage(text = Id + ", " + userId + ", " + profile.display_name + ", " + echo))
@@ -251,12 +251,8 @@ def bot():
         reply(replyToken, replyStack[:5], messageType)
     
     push(Id, [top_5_list])
+    
     #push(Id, [msg_in_string])
-    #push(Id, [Rabbit[2079], ppllnb[2079], str(vec_bow)])
-    ##########push(userId, ["eiei"])
-    
-    
-    ################push(userId, [', ' + profile.display_name])
     
     #push(roomId, ["eiei"])
     #push(groupId, ["eiei"])
