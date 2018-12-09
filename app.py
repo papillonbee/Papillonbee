@@ -250,7 +250,7 @@ def bot():
     else:
         reply(replyToken, replyStack[:5], messageType)
     
-    push(Id, [top_5_list])
+    #push(Id, [top_5_list])
     
     #push(Id, [msg_in_string])
     
